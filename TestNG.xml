@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite">
+<listeners>
+<listener class-name="com.httpframe.httpframe.CunstomListener" />
+
+</listeners>
+  <test name="Test">
+  <groups>  
+          <run>  
+                <include name="functest" />
+            </run> 
+        </groups>  
+    <classes>
+      <class name="cn.linlin.Demo"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

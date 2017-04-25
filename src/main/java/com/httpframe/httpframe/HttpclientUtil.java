@@ -19,21 +19,31 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
+import org.apache.http.cookie.CookieSpecProvider;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.impl.cookie.BestMatchSpecFactory;
+import org.apache.http.impl.cookie.BrowserCompatSpecFactory;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
@@ -49,6 +59,9 @@ public class HttpclientUtil {
 	private static String EMPTY_STR = "";
 	private static String encode = "UTF-8";
 	private static RequestConfig requestConfig;
+	private static CookieStore cookieStore = null;
+	//private static HttpClientContext context = null;
+	private static CloseableHttpClient httpClient = null;
 
 	/**
 	 * 初始化链接
@@ -95,7 +108,10 @@ public class HttpclientUtil {
 	 * @return
 	 */
 	private static CloseableHttpClient getHttpClient() {
-		return HttpClients.custom().setConnectionManager(cm).build();
+		
+		
+		
+		return HttpClients.custom().setConnectionManager(cm).setDefaultCookieStore(cookieStore).build();
 	}
 
 	
@@ -215,9 +231,9 @@ public class HttpclientUtil {
 	 *            访问url
 	 * @return
 	 */
-	public static String httpGetRequest(String url) {
+	public static String httpGetRequest(String url,HttpClientContext clientContext) {
 		HttpGet httpGet = new HttpGet(url);
-		return getResult(httpGet);
+		return getResult(httpGet,clientContext);
 	}
 
 	/**
@@ -232,13 +248,13 @@ public class HttpclientUtil {
 	 * @return
 	 * @throws URISyntaxException
 	 */
-	public static String httpGetRequest(String url, Map<String, Object> headers)
+	public static String httpGetRequest(String url, Map<String, Object> headers,HttpClientContext clientContext)
 			throws URISyntaxException {
 		HttpGet httpGet = new HttpGet(url);
 		for (Map.Entry<String, Object> param : headers.entrySet()) {
 			httpGet.addHeader(param.getKey(), param.getValue() + "");
 		}
-		return getResult(httpGet);
+		return getResult(httpGet,clientContext);
 	}
 
 	/**
@@ -247,9 +263,9 @@ public class HttpclientUtil {
 	 * @param url
 	 * @return
 	 */
-	public static String httpPostRequest(String url) {
+	public static String httpPostRequest(String url,HttpClientContext clientContext) {
 		HttpPost httpPost = new HttpPost(url);
-		return getResult(httpPost);
+		return getResult(httpPost,clientContext);
 	}
 
 	/**
@@ -262,12 +278,12 @@ public class HttpclientUtil {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String httpPostRequest(String url, Map<String, Object> params)
+	public static String httpPostRequest(String url, Map<String, Object> params,HttpClientContext clientContext)
 			throws UnsupportedEncodingException {
 		HttpPost httpPost = new HttpPost(url);
 		ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
 		httpPost.setEntity(new UrlEncodedFormEntity(pairs, encode));
-		return getResult(httpPost);
+		return getResult(httpPost,clientContext);
 	}
 
 	/**
@@ -280,14 +296,14 @@ public class HttpclientUtil {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String httpPostRequest(String url, String json)
+	public static String httpPostRequest(String url, String json,HttpClientContext clientContext)
 			throws UnsupportedEncodingException {
 		HttpPost httpPost = new HttpPost(url);
 		StringEntity entity = new StringEntity(json, "utf-8");
 		entity.setContentEncoding("UTF-8");
 		entity.setContentType("application/json");
 		httpPost.setEntity(entity);
-		return getResult(httpPost);
+		return getResult(httpPost, clientContext);
 	}
 
 	/**
@@ -303,7 +319,7 @@ public class HttpclientUtil {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static String httpPostRequest(String url,
-			Map<String, Object> headers, Map<String, Object> params)
+			Map<String, Object> headers, Map<String, Object> params,HttpClientContext clientContext)
 			throws UnsupportedEncodingException {
 		HttpPost httpPost = new HttpPost(url);
 
@@ -314,7 +330,7 @@ public class HttpclientUtil {
 		ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
 		httpPost.setEntity(new UrlEncodedFormEntity(pairs, encode));
 
-		return getResult(httpPost);
+		return getResult(httpPost,clientContext);
 	}
 
 	/**
@@ -372,16 +388,55 @@ public class HttpclientUtil {
 		return pairs;
 	}
 
+	/*
+	 * 设置回话保持
+	 */
+	/*public static void setCookieStore(HttpResponse httpResponse) {
+		System.out.println("----setCookieStore");
+		cookieStore = new BasicCookieStore();
+		// JSESSIONID
+		String setCookie = httpResponse.getFirstHeader("Set-Cookie").getValue();
+		String JSESSIONID = setCookie.substring("JSESSIONID=".length(), setCookie.indexOf(";"));
+		System.out.println("JSESSIONID:" + JSESSIONID);
+		// 新建一个Cookie
+		BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", JSESSIONID);
+		cookie.setVersion(0);
+		cookie.setDomain(".ehuu.com");
+		cookie.setPath("/");
+		// cookie.setAttribute(ClientCookie.VERSION_ATTR, "0");
+		// cookie.setAttribute(ClientCookie.DOMAIN_ATTR, "127.0.0.1");
+		// cookie.setAttribute(ClientCookie.PORT_ATTR, "8080");
+		// cookie.setAttribute(ClientCookie.PATH_ATTR, "/CwlProWeb");
+		cookieStore.addCookie(cookie);
+	}*/
+	
+	
+	/*
+	 * 
+	 */
+	/*public static void setContext() {
+	    System.out.println("----setContext");
+	    context = HttpClientContext.create();
+	    Registry<CookieSpecProvider> registry = RegistryBuilder
+	        .<CookieSpecProvider> create()
+	        .register(CookieSpecs.BEST_MATCH, new BestMatchSpecFactory())
+	        .register(CookieSpecs.BROWSER_COMPATIBILITY,
+	            new BrowserCompatSpecFactory()).build();
+	    context.setCookieSpecRegistry(registry);
+	    context.setCookieStore(cookieStore);
+	  }*/
+	
+	
 	/**
 	 * http 请求结果处理
 	 * 
 	 * @param request
 	 * @return
 	 */
-	private static String getResult(HttpRequestBase request, String... epargs) {
+	private static String getResult(HttpRequestBase request, HttpClientContext clientContext) {
 		URI uri = request.getURI();
 		String strUrl = uri.toString();
-		CloseableHttpClient httpClient = null;
+		
 			
 		if (strUrl.startsWith("http://")) {
 			httpClient = getHttpClient();
@@ -391,7 +446,9 @@ public class HttpclientUtil {
 		}
 		CloseableHttpResponse response = null;
 		try {
-			response = httpClient.execute(request);
+			response = httpClient.execute(request,clientContext);
+			//setCookieStore(response);
+			//setContext();
 			int status = response.getStatusLine().getStatusCode();
 			if (status == 200) {
 				HttpEntity entity = response.getEntity();

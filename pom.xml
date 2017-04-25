@@ -23,6 +23,12 @@
     <version>1.7.20</version>
 </dependency>
   
+  <dependency>
+	<groupId>org.mock-server</groupId>
+	<artifactId>mockserver-netty</artifactId>
+	<version>SNAPSHOT</version>
+</dependency>
+  
   
   <dependency>
     <groupId>org.apache.httpcomponents</groupId>
@@ -37,6 +43,13 @@
     <groupId>commons-codec</groupId>
     <artifactId>commons-codec</artifactId>
     <version>1.10</version>
+</dependency>
+
+ <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.24</version>
 </dependency>
  
  
@@ -60,13 +73,34 @@
     <artifactId>httpmime</artifactId>
     <version>4.5</version>
 </dependency>
- 
+
+ <dependency>
+	<groupId>org.mock-server</groupId>
+	<artifactId>mockserver-client-java</artifactId>
+	<version>RELEASE</version>
+</dependency>
   
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.8.21</version>
+      <scope>provided</scope>
     </dependency>
+   <!--mock server  -->
+   <dependency>
+	<groupId>org.mock-server</groupId>
+	<artifactId>mockserver-netty</artifactId>
+	<version>RELEASE</version>
+</dependency>
+
+
+   
+   
   </dependencies>
+  
+  
+  
+  
+
+
 </project>
