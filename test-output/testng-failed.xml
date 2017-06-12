@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="cn.demo.demo1">
+      <class name="cn.linlin.LoginTest">
         <methods>
-          <include name="BeforeClass"/>
-          <include name="fuction1"/>
+          <include name="loginTestBuyer"/>
+          <include name="beforeClass"/>
+          <include name="afterClass"/>
         </methods>
-      </class> <!-- cn.demo.demo1 -->
+      </class> <!-- cn.linlin.LoginTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

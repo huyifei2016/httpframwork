@@ -2,7 +2,6 @@
 <suite name="Suite">
 <listeners>
 <listener class-name="com.httpframe.httpframe.CunstomListener" />
-
 </listeners>
   <test name="Test">
   <groups>  
