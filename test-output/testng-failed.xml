@@ -3,13 +3,17 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="cn.linlin.LoginTest">
+      <class name="restassuied.Shop">
         <methods>
-          <include name="loginTestBuyer"/>
-          <include name="beforeClass"/>
-          <include name="afterClass"/>
+          <include name="find_all_product_Test"/>
+          <include name="get_nearby_vendor"/>
+          <include name="get_app_indexweb_Test"/>
+          <include name="ShopidTest"/>
+          <include name="find_shopplan_products_Test"/>
+          <include name="BeforeClass"/>
+          <include name="find_all_category_Test"/>
         </methods>
-      </class> <!-- cn.linlin.LoginTest -->
+      </class> <!-- restassuied.Shop -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

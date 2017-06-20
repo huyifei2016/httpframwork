@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="6" passed="6">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="1240" started-at="2017-06-12T10:28:50Z" finished-at="2017-06-12T10:28:51Z">
+  <suite name="Default suite" duration-ms="2945" started-at="2017-06-20T02:12:25Z" finished-at="2017-06-20T02:12:28Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="1240" started-at="2017-06-12T10:28:50Z" finished-at="2017-06-12T10:28:51Z">
-      <class name="cn.linlin.RegisterTest">
-        <test-method status="PASS" signature="BeforeClass()[pri:0, instance:cn.linlin.RegisterTest@47c62251]" name="BeforeClass" is-config="true" duration-ms="7" started-at="2017-06-12T18:28:50Z" finished-at="2017-06-12T18:28:50Z">
+    <test name="Default test" duration-ms="2945" started-at="2017-06-20T02:12:25Z" finished-at="2017-06-20T02:12:28Z">
+      <class name="restassuied.Shop">
+        <test-method status="PASS" signature="BeforeClass()[pri:0, instance:restassuied.Shop@1794d431]" name="BeforeClass" is-config="true" duration-ms="7" started-at="2017-06-20T10:12:25Z" finished-at="2017-06-20T10:12:25Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeClass -->
-        <test-method status="PASS" signature="registerTest()[pri:0, instance:cn.linlin.RegisterTest@47c62251]" name="registerTest" duration-ms="1023" started-at="2017-06-12T18:28:50Z" finished-at="2017-06-12T18:28:51Z">
+        <test-method status="PASS" signature="ShopidTest()[pri:0, instance:restassuied.Shop@1794d431]" name="ShopidTest" duration-ms="2156" started-at="2017-06-20T10:12:25Z" finished-at="2017-06-20T10:12:27Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- registerTest -->
-        <test-method status="PASS" signature="AfterClass()[pri:0, instance:cn.linlin.RegisterTest@47c62251]" name="AfterClass" is-config="true" duration-ms="200" started-at="2017-06-12T18:28:51Z" finished-at="2017-06-12T18:28:51Z">
+        </test-method> <!-- ShopidTest -->
+        <test-method status="PASS" signature="find_all_category_Test()[pri:0, instance:restassuied.Shop@1794d431]" name="find_all_category_Test" duration-ms="87" started-at="2017-06-20T10:12:27Z" finished-at="2017-06-20T10:12:27Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- AfterClass -->
-      </class> <!-- cn.linlin.RegisterTest -->
+        </test-method> <!-- find_all_category_Test -->
+        <test-method status="PASS" signature="find_all_product_Test()[pri:0, instance:restassuied.Shop@1794d431]" name="find_all_product_Test" duration-ms="403" started-at="2017-06-20T10:12:27Z" finished-at="2017-06-20T10:12:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- find_all_product_Test -->
+        <test-method status="PASS" signature="find_shopplan_products_Test()[pri:0, instance:restassuied.Shop@1794d431]" name="find_shopplan_products_Test" duration-ms="61" started-at="2017-06-20T10:12:27Z" finished-at="2017-06-20T10:12:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- find_shopplan_products_Test -->
+        <test-method status="PASS" signature="get_app_indexweb_Test()[pri:0, instance:restassuied.Shop@1794d431]" name="get_app_indexweb_Test" duration-ms="85" started-at="2017-06-20T10:12:28Z" finished-at="2017-06-20T10:12:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- get_app_indexweb_Test -->
+        <test-method status="PASS" signature="get_nearby_vendor()[pri:0, instance:restassuied.Shop@1794d431]" name="get_nearby_vendor" duration-ms="124" started-at="2017-06-20T10:12:28Z" finished-at="2017-06-20T10:12:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- get_nearby_vendor -->
+      </class> <!-- restassuied.Shop -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -47,56 +47,14 @@ public class ShopController {
 		//JdbcUtil.deleteUser(phone);
 		//OperationUtils.register(phone);
 		customid=JdbcUtil.gainCustomid(phone);
-		login(phone);
 		
 		
-	}
-	
-	
-	
-	public static void login(String phone)
-	{
-		
-		url="http://api.ehuu.com/site-api/userlogin";
-		String regex="SUCCEED";
-		Matcher matcher=null;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("loginName", "18244281200");
-		map.put("password", "hyf123456");
-		map.put("xPoint", "104.056000");
-		map.put("yPoint", "30.550700");
-		map.put("lastLoginAddress", "");
-		map.put("rememberMe", "true");
-		String jString=JSON.toJSONString(map);
-		String result;
-		try { 
-			
-			
-			result=HttpclientUtil.httpPostRequest(jString, jString, null);
-			Pattern pattern = Pattern.compile(regex);
-			matcher=pattern.matcher(result);
-			if(!matcher.find())
-			{
-				System.out.println("fail!!!");
-				
-			}
-			
-			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Reporter.log(e.toString());
-		
-		}
-		finally
-		{
-			
-			
-		}
-		
-	
 		
 	}
+	
+	
+	
+	
 	//http://192.168.10.21/shop/create-newshop
 	//单体店铺
 	
