@@ -23,18 +23,13 @@ public class Shop {
 	public void BeforeClass()
 	{
 		
-		
-		
 	}
 	
 	@Test
 	public void ShopidTest()
 	{
-
 		get("http://192.168.10.21/site-api/find-all-category?shopCode=24").then()
 		.body("message", equalTo("SUCCEED"));
-		
-		
 	}
 	@Test
 	public void find_all_category_Test()
@@ -107,8 +102,6 @@ public class Shop {
 		map.put("subject", "");
 		String result=given().contentType(ContentType.JSON).body(map).when().
 				post("http://192.168.10.21/site-api/find-all-product").asString();
-		
-		
 		given().contentType(ContentType.JSON).body(map)
 		.when().post("http://192.168.10.21/site-api/find-all-product")
 		.then().body("message", equalTo("SUCCEED"));

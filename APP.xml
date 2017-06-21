@@ -4,13 +4,8 @@
 <listener class-name="com.httpframe.httpframe.CunstomListener" />
 </listeners>
   <test name="Test">
-  <groups>  
-          <run>  
-                <include name="functest" />
-            </run> 
-        </groups>  
     <classes>
-      <class name="cn.linlin.Demo"/>
+      <class name="restassuied.Shop"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
