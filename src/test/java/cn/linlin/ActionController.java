@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.alibaba.fastjson.JSON;
+import com.httpframe.httpframe.HttpClientUtil;
 import com.httpframe.httpframe.HttpclientUtil;
 
 public class ActionController {
@@ -33,7 +34,7 @@ public class ActionController {
 		map.put("message", "");
 		String jsonString = JSON.toJSONString(map);
 		try {
-			String string = HttpclientUtil.httpPostRequest(url, map);
+			String string = HttpClientUtil.httpPostRequest(url, map,null);
 			Assert.assertEquals("201", string);
 
 		} catch (UnsupportedEncodingException e) {

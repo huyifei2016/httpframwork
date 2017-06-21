@@ -33,7 +33,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.beust.testng.TestNG;
 import com.httpframe.httpframe.HttpclientUtil;
-import com.twitter.conversions.thread;
+
 
 
 public class demo1 {

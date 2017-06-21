@@ -59,13 +59,9 @@ import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
-//import com.twitter.jvm.numProcs;
-
 import io.netty.handler.codec.http.HttpContent;
 import com.httpframe.httpframe.JsonUtil;
-public class HttpclientUtil {
+public class HttpClientUtil {
 
 	
 	/** 日志文件处理 **/

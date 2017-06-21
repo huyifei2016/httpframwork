@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.httpframe.httpframe.HttpclientUtil;
-import com.twitter.conversions.string;
+
 
 public class Demo {
 	
