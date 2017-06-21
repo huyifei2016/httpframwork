@@ -43,7 +43,7 @@ public class Relevance {
 		url="http://api.ehuu.com/site-api/shoppingcart/add-shopping-cart?session=&barcode=501-31232131231&quantity=1&shopCode=501";
 		try {
 			
-			String string=HttpclientUtil.httpGetRequest(url);
+			String string=HttpclientUtil.httpGetRequest(url, null);
 			System.out.println(string);
 			
 		} catch (Exception e) {
